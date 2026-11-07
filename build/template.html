@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Mauricio Bustamante's daily arXiv picks, __SPAN__: __N__ papers in one searchable page, with trends in what he reads and stars.">
+<meta name="author" content="Mauricio Bustamante">
+<meta property="og:title" content="Daily arXiv Picks">
+<meta property="og:description" content="Mauricio Bustamante's daily arXiv picks, __SPAN__: __N__ papers in one searchable page, with trends in what he reads and stars.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mbustama.github.io/daily-arxiv-picks/">
+<meta property="og:image" content="https://mbustamante.wordpress.com/wp-content/uploads/2026/11/daily-arxiv-picks-topics.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d5bbf'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='white' font-family='Georgia,serif'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Daily arXiv Picks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: a reading-log ledger — name + one-line summary, tab bar, then findings as figure blocks; search is a dense list of arXiv entries. */
+:root{
+  --bg:#f3f5f8; --surface:#fdfdfe; --ink:#12161c; --ink-2:#465061; --muted:#727b89; --line:#dde2ea; --line-2:#c7ced9;
+  --accent:#1d5bbf; --accent-wash:#e6eefb; --star:#9a6500; --chip:#eef1f5;
+  --s0:#86b6ef; --s1:#3987e5; --s2:#184f95;
+  --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#eda100;
+  --pos:#2a78d6; --neg:#e34948;
+  --h0:#f0f4fa; --h1:#cde2fb; --h2:#9ec5f4; --h3:#6da7ec; --h4:#3987e5; --h5:#256abf; --h6:#184f95; --h7:#0d366b;
+  --display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f1114; --surface:#1a1c20; --ink:#eceef2; --ink-2:#b8bfca; --muted:#8a919d; --line:#2a2e35; --line-2:#3a3f48;
+  --accent:#7aa9ee; --accent-wash:#1d2a3d; --star:#e3a83a; --chip:#23262c;
+  --s0:#256abf; --s1:#5598e7; --s2:#9ec5f4;
+  --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500;
+  --pos:#3987e5; --neg:#e66767;
+  --h0:#1f2329; --h1:#132a4a; --h2:#104281; --h3:#184f95; --h4:#256abf; --h5:#3987e5; --h6:#6da7ec; --h7:#b7d3f6;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0f1114; --surface:#1a1c20; --ink:#eceef2; --ink-2:#b8bfca; --muted:#8a919d; --line:#2a2e35; --line-2:#3a3f48;
+  --accent:#7aa9ee; --accent-wash:#1d2a3d; --star:#e3a83a; --chip:#23262c;
+  --s0:#256abf; --s1:#5598e7; --s2:#9ec5f4;
+  --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500;
+  --pos:#3987e5; --neg:#e66767;
+  --h0:#1f2329; --h1:#132a4a; --h2:#104281; --h3:#184f95; --h4:#256abf; --h5:#3987e5; --h6:#6da7ec; --h7:#b7d3f6;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 64px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+header.top{padding-block:36px 18px;display:grid;gap:10px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,44px);line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.lede{color:var(--ink-2);max-width:68ch;margin:0}
+.facts{display:flex;flex-wrap:wrap;gap:6px 22px;margin:4px 0 0;padding:0;list-style:none;font-size:14px;color:var(--ink-2)}
+.facts b{color:var(--ink);font-weight:600}
+.facts .st{color:var(--star);letter-spacing:.05em}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:28px;overflow-x:auto}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav.tabs a{padding:10px 14px;color:var(--ink-2);font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+nav.tabs a:hover{text-decoration:none;color:var(--ink)}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.tabs .n{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:6px}
+section.view{display:grid;gap:44px}
+.fig{display:grid;gap:12px;min-width:0}
+.fig h2{font-family:var(--display);font-weight:600;font-size:23px;line-height:1.2;margin:0;text-wrap:balance}
+.fig .kicker{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500}
+.fig p{margin:0;max-width:70ch;color:var(--ink-2)}
+.fig p b{color:var(--ink);font-weight:600}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:28px 32px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink-2);margin-bottom:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.legend i.ln{height:2px;width:14px;border-radius:1px;vertical-align:3px}
+.note{font-size:13px;color:var(--muted);max-width:75ch}
+svg text{font-family:var(--sans);fill:var(--muted);font-size:11px}
+svg .ink{fill:var(--ink)} svg .ink2{fill:var(--ink-2)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#tip{position:fixed;z-index:20;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--line-2);border-radius:8px;padding:8px 10px;font-size:12.5px;line-height:1.45;box-shadow:0 4px 18px rgba(0,0,0,.12);max-width:280px}
+#tip .t{font-weight:600;margin-bottom:2px}
+#tip .r{display:flex;justify-content:space-between;gap:14px;font-variant-numeric:tabular-nums}
+#tip .r i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+/* topic table */
+table{border-collapse:collapse;width:100%}
+.ttab{min-width:780px;font-size:13px}
+.ttab th{font-weight:500;color:var(--muted);text-align:left;padding:4px 6px;font-size:12px;white-space:nowrap}
+.ttab td{padding:2px 6px;border-top:1px solid var(--line);vertical-align:middle}
+.ttab td.tn{white-space:nowrap;color:var(--ink)}
+.ttab td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.ttab td.hc{padding:2px 1px;width:30px}
+.ttab .cell{height:18px;border-radius:3px}
+.ttab th.yr{text-align:center;padding:4px 1px;font-variant-numeric:tabular-nums}
+.ttab td.lift{width:210px;padding-right:10px}
+.ttab tr:hover td{background:var(--accent-wash)}
+.ttab tr{cursor:pointer}
+.ramp{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.ramp span.sw{display:inline-flex}
+.ramp span.sw i{width:18px;height:10px;display:block}
+/* author tables */
+.atab{font-size:13.5px}
+.atab th{font-weight:500;color:var(--muted);text-align:left;font-size:12px;padding:4px 6px}
+.atab td{padding:5px 6px;border-top:1px solid var(--line);vertical-align:middle}
+.atab td.num{text-align:right;font-variant-numeric:tabular-nums;width:48px}
+.atab td.sp{width:120px}
+.atab button.lk{all:unset;cursor:pointer;color:var(--ink)} .atab button.lk:hover{color:var(--accent);text-decoration:underline}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:baseline;gap:6px;background:var(--chip);border-radius:999px;padding:3px 10px;font-size:13px;color:var(--ink);border:1px solid transparent}
+button.chip{cursor:pointer;font:inherit;font-size:13px} button.chip:hover{border-color:var(--line-2)}
+.chip small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+/* search */
+.controls{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:end;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.controls label{display:grid;gap:4px;font-size:12px;color:var(--muted);font-weight:500}
+.controls input[type=search],.controls select{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line-2);border-radius:7px;padding:7px 9px;min-width:0}
+.controls .q{flex:1 1 280px} .controls .q input{width:100%}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:7px;overflow:hidden}
+.seg button{font:inherit;font-size:13.5px;border:0;background:var(--bg);color:var(--ink-2);padding:7px 11px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line-2)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+.chk{display:flex!important;align-items:center;gap:6px;grid-auto-flow:column;font-size:13.5px!important;color:var(--ink-2)!important;padding-bottom:8px}
+.btn{font:inherit;font-size:13.5px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:7px;padding:7px 12px;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.resbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin:14px 0 6px;font-size:14px;color:var(--ink-2)}
+.resbar b{color:var(--ink);font-variant-numeric:tabular-nums}
+ol.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+ol.list li{display:grid;grid-template-columns:34px 1fr;gap:2px 10px;padding:9px 2px;border-bottom:1px solid var(--line)}
+ol.list .stars{color:var(--star);font-size:13px;letter-spacing:.02em;padding-top:2px;white-space:nowrap}
+ol.list .ti{color:var(--ink);font-weight:500;min-width:0;overflow-wrap:anywhere}
+ol.list .ti a{color:inherit} ol.list .ti a:hover{color:var(--accent)}
+ol.list .au{grid-column:2;color:var(--ink-2);font-size:13.5px;min-width:0;overflow-wrap:anywhere}
+ol.list .mt{grid-column:2;display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:var(--muted);align-items:center}
+.mt .id{font-family:var(--mono);font-size:12px}
+.mt .cat{font-family:var(--mono);background:var(--chip);border-radius:4px;padding:0 6px}
+.mt .warn{color:var(--neg)}
+mark{background:var(--accent-wash);color:inherit;border-radius:2px;padding:0 1px}
+.more{margin-top:14px;display:flex;justify-content:center}
+.empty{padding:30px 6px;color:var(--ink-2)}
+/* projects */
+.pgrid{display:grid;gap:22px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:10px;min-width:0}
+.proj h3{margin:0;font-family:var(--display);font-weight:600;font-size:19px;line-height:1.25}
+.proj .pc{font-size:13px;color:var(--muted)}
+.proj ol.list{border-top:1px solid var(--line)}
+.proj ol.list li{padding:7px 2px}
+.ptools{display:flex;gap:8px;flex-wrap:wrap}
+/* fixes */
+.ftab{font-size:13.5px;min-width:640px}
+.ftab th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;padding:6px}
+.ftab td{border-top:1px solid var(--line);padding:6px;vertical-align:top}
+.ftab td.m{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.pill{display:inline-block;font-size:11.5px;border-radius:999px;padding:1px 8px;font-weight:500}
+.pill.ok{background:var(--accent-wash);color:var(--accent)}
+.pill.q{background:var(--chip);color:var(--ink-2);border:1px solid var(--line-2)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:560px){ .fig h2{font-size:20px} .controls{padding:12px} nav.tabs a{padding:10px 10px} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>Daily arXiv Picks</h1>
+  <p class="lede">Since February 2014 I have kept a daily list of the arXiv preprints I find interesting, and since October 2017 the list has been public on <a href="https://mbustamante.net/my-daily-arxiv-picks/" target="_blank" rel="noopener">my website</a>. This page puts all __N__ picks in one searchable place, along with what they show about how my reading has changed. One star (★) marks a paper I found especially interesting; two stars (★★) mark one that is very relevant to my own work.</p>
+  <ul class="facts" id="facts"></ul>
+</header>
+<nav class="tabs" aria-label="Views">
+  <a href="#overview" data-v="overview">Overview</a>
+  <a href="#search" data-v="search">Search<span class="n" id="nAll"></span></a>
+</nav>
+
+<section class="view" id="v-overview">
+  <div class="fig">
+    <div class="kicker">Volume</div>
+    <h2>I pick three times as many papers as in 2014, and use ★★ far more sparingly</h2>
+    <p id="pVol"></p>
+    <div class="panel">
+      <div class="legend"><span><i style="background:var(--s0)"></i>Unstarred</span><span><i style="background:var(--s1)"></i>★</span><span><i style="background:var(--s2)"></i>★★</span></div>
+      <div id="chVol"></div>
+    </div>
+    <p class="note">Year comes from each paper's arXiv ID; __LASTYEAR__ runs to __LASTMONTH__. A handful of older papers (pre-2014 IDs) are left out of the chart.</p>
+  </div>
+
+  <div class="fig">
+    <div class="kicker">arXiv categories</div>
+    <h2>The mix has moved from astro-ph towards hep-ph</h2>
+    <p id="pCat"></p>
+    <div class="panel">
+      <div class="legend"><span><i class="ln" style="background:var(--c1)"></i>astro-ph</span><span><i class="ln" style="background:var(--c2)"></i>hep-ph</span><span><i class="ln" style="background:var(--c3)"></i>hep-ex</span><span><i class="ln" style="background:var(--c4)"></i>Everything else</span></div>
+      <div id="chCat"></div>
+    </div>
+  </div>
+
+  <div class="fig">
+    <div class="kicker">Topics</div>
+    <h2>What I read and what I star have drifted apart</h2>
+    <p id="pTop"></p>
+    <div class="panel">
+      <div class="ramp" style="margin-bottom:10px">
+        <span>Share of that year's picks</span>
+        <span class="sw" id="rampSw"></span>
+        <span>none · &lt;1% → 15%+</span>
+        <span style="margin-left:18px">Star rate vs. that year's average:</span>
+        <span><i style="display:inline-block;width:12px;height:10px;background:var(--pos);border-radius:2px;vertical-align:-1px"></i> above</span>
+        <span><i style="display:inline-block;width:12px;height:10px;background:var(--neg);border-radius:2px;vertical-align:-1px"></i> below</span>
+      </div>
+      <div class="scroll"><table class="ttab" id="tTop"></table></div>
+    </div>
+    <p class="note">Topics are assigned by keyword matches on titles, so a paper can sit in several or none (about __UNTAGGED__% match none). The star-rate column compares each topic's share of starred papers (★ or ★★) with what the same years would give on average, so the drop in starring after 2017 doesn't skew it. Click a row to see its papers in Search.</p>
+  </div>
+
+  <div class="fig">
+    <div class="kicker">Title vocabulary</div>
+    <h2>Rising and fading terms</h2>
+    <p>These are terms that appear much more, or much less, often in titles I picked in __RECENT__ than in __EARLY__, ranked by a log-odds z-score. The numbers show how many papers each term appears in for each period. Click a term to search for it.</p>
+    <div class="two">
+      <div class="panel"><div class="kicker" style="margin-bottom:8px">More often now</div><div class="chips" id="cRise"></div></div>
+      <div class="panel"><div class="kicker" style="margin-bottom:8px">Less often now</div><div class="chips" id="cFade"></div></div>
+    </div>
+  </div>
+
+</section>
+
+<section class="view" id="v-search" hidden>
+  <div class="fig" style="gap:0">
+    <form class="controls" id="form" autocomplete="off">
+      <label class="q">Title, author or arXiv ID<input type="search" id="q" placeholder="e.g. Glashow, Murase, 2405.09332"></label>
+      <label>Stars<span class="seg" id="segStars"><button type="button" data-s="0" aria-pressed="true">All</button><button type="button" data-s="1" aria-pressed="false">★ or more</button><button type="button" data-s="2" aria-pressed="false">★★</button></span></label>
+      <label>Category<select id="cat"></select></label>
+      <label>Topic<select id="topic"></select></label>
+      <label>From<select id="y0"></select></label>
+      <label>To<select id="y1"></select></label>
+      <label class="chk"><input type="checkbox" id="own"> Only papers I co-authored</label>
+      <label>Order<select id="ord"><option value="new">Newest first</option><option value="old">Oldest first</option></select></label>
+    </form>
+    <div class="resbar"><span id="resN"></span><span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" id="copyIds">Copy arXiv IDs</button><button class="btn" type="button" id="reset">Clear filters</button></span></div>
+    <ol class="list" id="res"></ol>
+    <div class="more"><button class="btn" type="button" id="moreBtn" hidden>Show 100 more</button></div>
+    <p class="note" style="margin-top:14px">All words must match (title, author line or ID; accents ignored). Copy arXiv IDs copies every match, one per line, so you can paste them into INSPIRE or ADS to build a bibliography. A few entries were logged with a mistyped arXiv ID; they are marked "ID unclear" and link to an arXiv title search instead.</p>
+  </div>
+</section>
+
+
+<footer style="margin-top:56px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)">Compiled by <a href="https://mbustamante.net/" target="_blank" rel="noopener">Mauricio Bustamante</a> (Niels Bohr Institute, University of Copenhagen) from <a href="https://mbustamante.net/my-daily-arxiv-picks/" target="_blank" rel="noopener">my daily arXiv picks</a>, __SPAN__.</footer>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+const D = /*DATA*/null;
+const $ = s => document.querySelector(s);
+const fmt = n => n.toLocaleString('en-US');
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const YEARS = D.years;
+const R = D.recs; // [id,title,authors,cat,stars,year,topics,flag,line]
+const TOPIC_CODES = '0123456789abcdefghijklmnopqrstuvwxyz';
+const OWN = new Set(D.own);
+
+/* ---------- facts ---------- */
+const M = D.meta;
+$('#facts').innerHTML = `<li><b>${fmt(M.n)}</b> papers</li><li><span class="st">★</span> <b>${fmt(M.s1)}</b></li><li><span class="st">★★</span> <b>${fmt(M.s2)}</b></li><li><b>${M.first}</b> – <b>${M.last}</b></li>`;
+$('#nAll').textContent = fmt(M.n);
+
+/* ---------- tooltip ---------- */
+const tip = $('#tip');
+function showTip(e, html){ tip.innerHTML = html; tip.hidden = false; moveTip(e); }
+function moveTip(e){ const pad=14, w=tip.offsetWidth, h=tip.offsetHeight; let x=e.clientX+pad, y=e.clientY+pad; if(x+w>innerWidth-8) x=e.clientX-w-pad; if(y+h>innerHeight-8) y=e.clientY-h-pad; tip.style.left=Math.max(8,x)+'px'; tip.style.top=Math.max(8,y)+'px'; }
+function hideTip(){ tip.hidden = true; }
+const ns = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent){ const e=document.createElementNS(ns,tag); for(const k in attrs) e.setAttribute(k, attrs[k]); if(parent) parent.appendChild(e); return e; }
+function niceMax(v, step){ return Math.ceil(v/step)*step; }
+
+/* ---------- volume chart: stacked columns ---------- */
+const ys = D.ys;
+{
+  const y14=ys[0], yP=ys[ys.length-2], yL=ys[ys.length-1];
+  const s2since=R.filter(r=>r[4]===2&&r[5]>=2019).length, ownS2=R.reduce((a,r,i)=>a+(r[4]===2&&r[5]>=2019&&OWN.has(i)?1:0),0);
+  const s2early = ys.filter(d=>d.y<=2017).reduce((a,d)=>a+d.s2,0)/ys.filter(d=>d.y<=2017).reduce((a,d)=>a+d.n,0);
+  const s2late = ys.filter(d=>d.y>=2019).reduce((a,d)=>a+d.s2,0)/ys.filter(d=>d.y>=2019).reduce((a,d)=>a+d.n,0);
+  $('#pVol').innerHTML = `I picked <b>${fmt(y14.n)}</b> papers in 2014 and <b>${fmt(yP.n)}</b> in ${yP.y}; ${yL.y} has <b>${fmt(yL.n)}</b> so far. ★★ went from <b>${(100*s2early).toFixed(0)}%</b> of picks in 2014–17 to <b>${(100*s2late).toFixed(1)}%</b> from 2019 on; since 2019, ${ownS2} of the ${s2since} ★★ papers are my own. ★ dipped to about 10% of picks in 2020–22 and was <b>${(100*yP.s1/yP.n).toFixed(0)}%</b> in ${yP.y}.`;
+}
+function drawVol(){
+  const host=$('#chVol'); host.innerHTML='';
+  const W=host.clientWidth||640, H=260, m={l:44,r:8,t:12,b:26};
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Papers picked per year, split by star level'},host);
+  const max=niceMax(Math.max(...ys.map(d=>d.n)),500), iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const y=v=>m.t+ih-(v/max)*ih, band=iw/ys.length, bw=Math.min(24,band*0.62);
+  for(let v=0; v<=max; v+=500){ el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:css('--line'),'stroke-width':1},svg); const t=el('text',{x:m.l-8,y:y(v)+4,'text-anchor':'end'},svg); t.textContent=v>=1000?(v/1000)+'K':v; }
+  ys.forEach((d,i)=>{
+    const cx=m.l+band*i+band/2;
+    const segs=[['s0',d.s0],['s1',d.s1],['s2',d.s2]];
+    let acc=0;
+    segs.forEach(([k,v],j)=>{
+      if(!v) return;
+      const y0=y(acc), y1=y(acc+v); acc+=v;
+      const top = j===segs.length-1 || segs.slice(j+1).every(s=>!s[1]);
+      const hgt=Math.max(0,y0-y1-(j>0?2:0));
+      const yy=y1;
+      if(top){ const r=Math.min(4,hgt); const p=`M${cx-bw/2},${yy+hgt} V${yy+r} Q${cx-bw/2},${yy} ${cx-bw/2+r},${yy} H${cx+bw/2-r} Q${cx+bw/2},${yy} ${cx+bw/2},${yy+r} V${yy+hgt} Z`; el('path',{d:p,style:`fill:var(--${k})`},svg); }
+      else el('rect',{x:cx-bw/2,y:yy,width:bw,height:hgt,style:`fill:var(--${k})`},svg);
+    });
+    const t=el('text',{x:cx,y:H-8,'text-anchor':'middle'},svg); t.textContent=(band<34? "'"+String(d.y).slice(2): d.y);
+    const hit=el('rect',{x:m.l+band*i,y:m.t,width:band,height:ih,fill:'transparent'},svg);
+    hit.addEventListener('pointermove',e=>showTip(e,`<div class="t">${d.y}${d.y===YEARS[YEARS.length-1]?' (to __LASTMONTH__)':''}</div><div class="r"><span>All picks</span><b>${fmt(d.n)}</b></div><div class="r"><span><i style="background:var(--s0)"></i>Unstarred</span><span>${fmt(d.s0)}</span></div><div class="r"><span><i style="background:var(--s1)"></i>★</span><span>${fmt(d.s1)} (${(100*d.s1/d.n).toFixed(0)}%)</span></div><div class="r"><span><i style="background:var(--s2)"></i>★★</span><span>${fmt(d.s2)} (${(100*d.s2/d.n).toFixed(1)}%)</span></div>`));
+    hit.addEventListener('pointerleave',hideTip);
+  });
+  el('line',{x1:m.l,x2:W-m.r,y1:y(0),y2:y(0),stroke:css('--line-2'),'stroke-width':1},svg);
+  const last=ys[ys.length-2]; const lx=m.l+band*(ys.length-2)+band/2; const lt=el('text',{x:lx,y:y(last.n)-6,'text-anchor':'middle',class:'ink2'},svg); lt.textContent=fmt(last.n);
+  const ft=el('text',{x:m.l+band/2,y:y(ys[0].n)-6,'text-anchor':'middle',class:'ink2'},svg); ft.textContent=fmt(ys[0].n);
+}
+
+/* ---------- categories: share lines ---------- */
+{
+  const a=ys[0], b=ys[ys.length-1];
+  $('#pCat').innerHTML = `astro-ph made up <b>${Math.round(100*a.astro/a.n)}%</b> of picks in 2014 and <b>${Math.round(100*b.astro/b.n)}%</b> in ${b.y}. Over the same period hep-ph rose from <b>${Math.round(100*a.hepph/a.n)}%</b> to <b>${Math.round(100*b.hepph/b.n)}%</b>, with most of the shift between 2017 and 2021. The category is each paper's primary arXiv listing.`;
+}
+function drawCat(){
+  const host=$('#chCat'); host.innerHTML='';
+  const W=host.clientWidth||640, H=240, m={l:40,r:86,t:12,b:26};
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Share of picks per arXiv category by year'},host);
+  const iw=W-m.l-m.r, ih=H-m.t-m.b, max=80;
+  const x=i=>m.l+iw*i/(ys.length-1), y=v=>m.t+ih-(v/max)*ih;
+  for(let v=0; v<=max; v+=20){ el('line',{x1:m.l,x2:m.l+iw,y1:y(v),y2:y(v),stroke:v?css('--line'):css('--line-2'),'stroke-width':1},svg); const t=el('text',{x:m.l-8,y:y(v)+4,'text-anchor':'end'},svg); t.textContent=v+'%'; }
+  ys.forEach((d,i)=>{ if(W<520 && i%2) return; const t=el('text',{x:x(i),y:H-8,'text-anchor':'middle'},svg); t.textContent=W<520?"'"+String(d.y).slice(2):d.y; });
+  const S=[['astro','astro-ph','--c1'],['hepph','hep-ph','--c2'],['hepex','hep-ex','--c3'],['other','Everything else','--c4']];
+  const ends=[];
+  S.forEach(([k,lab,c])=>{
+    const pts=ys.map((d,i)=>[x(i),y(100*d[k]/d.n)]);
+    el('path',{d:'M'+pts.map(p=>p.join(',')).join(' L'),style:`fill:none;stroke:var(${c})`,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'},svg);
+    const lp=pts[pts.length-1]; el('circle',{cx:lp[0],cy:lp[1],r:4,style:`fill:var(${c});stroke:var(--surface)`,'stroke-width':2},svg);
+    ends.push({y:lp[1],lab:k==='other'?'other':lab,v:Math.round(100*ys[ys.length-1][k]/ys[ys.length-1].n)});
+  });
+  ends.sort((a,b)=>a.y-b.y); for(let i=1;i<ends.length;i++) if(ends[i].y-ends[i-1].y<13) ends[i].y=ends[i-1].y+13;
+  ends.forEach(e=>{ const t=el('text',{x:m.l+iw+10,y:e.y+4,class:'ink2'},svg); t.textContent=`${e.lab} ${e.v}%`; });
+  const cross=el('line',{x1:0,x2:0,y1:m.t,y2:m.t+ih,stroke:css('--line-2'),'stroke-width':1,visibility:'hidden'},svg);
+  const hit=el('rect',{x:m.l,y:m.t,width:iw,height:ih,fill:'transparent'},svg);
+  hit.addEventListener('pointermove',e=>{
+    const r=svg.getBoundingClientRect(); const i=Math.max(0,Math.min(ys.length-1,Math.round((e.clientX-r.left-m.l)/iw*(ys.length-1)))); const d=ys[i];
+    cross.setAttribute('x1',x(i)); cross.setAttribute('x2',x(i)); cross.setAttribute('visibility','visible');
+    showTip(e,`<div class="t">${d.y}</div>`+S.map(([k,lab,c])=>`<div class="r"><span><i style="background:var(${c})"></i>${lab}</span><span>${(100*d[k]/d.n).toFixed(0)}% · ${fmt(d[k])}</span></div>`).join(''));
+  });
+  hit.addEventListener('pointerleave',()=>{hideTip();cross.setAttribute('visibility','hidden');});
+}
+
+/* ---------- topics table ---------- */
+const TS = D.tstats.slice().sort((a,b)=>b.lift-a.lift);
+{
+  const get=k=>D.tstats.find(t=>t.k.startsWith(k));
+  const dm=get('Dark matter (any)'), ax=get('Axions'), grb=get('GRBs'), ml=get('Machine learning'), he=get('High-energy astrophysical'), km=get('KM3-230213A'), gl=get('Glashow'), ngc=get('NGC 1068'), gw=get('Gravitational waves'), pbh=get('Primordial');
+  const avg=(t,a,b)=>{const i0=YEARS.indexOf(a),i1=YEARS.indexOf(b); const v=t.share.slice(i0,i1+1); return v.reduce((x,y)=>x+y,0)/v.length;};
+  const L=YEARS[YEARS.length-1], L3=YEARS[Math.max(0,YEARS.length-3)], L2=YEARS[Math.max(0,YEARS.length-2)], sy=y=>String(y).slice(2);
+  $('#pTop').innerHTML = `Dark matter is the largest topic in the list, with <b>${fmt(dm.n)}</b> papers and about ${avg(dm,L3,L).toFixed(0)}% of each recent year's picks, but I star it at only <b>${dm.lift}×</b> the average rate. Axions grew from about ${avg(ax,2014,2017).toFixed(0)}% to ${avg(ax,L3,L).toFixed(0)}% of picks, and machine learning from close to 0% to ${ml.share[ml.share.length-1].toFixed(0)}% in ${L}; I rarely star either (axions ${ax.lift}×). My stars still go mostly to high-energy neutrinos: the KM3NeT event KM3-230213A at <b>${km.lift}×</b>, the Glashow resonance at <b>${gl.lift}×</b>, NGC 1068 and Seyfert galaxies at <b>${ngc.lift}×</b>, and high-energy astrophysical neutrinos overall at <b>${he.lift}×</b>. Gamma-ray bursts fell from about ${avg(grb,2014,2017).toFixed(0)}% of my picks in 2014–17 to ${avg(grb,L2,L).toFixed(0)}% in ${L2}–${sy(L)}.`;
+}
+function heatColor(v){ if(v<=0) return 'var(--h0)'; const st=[1,2,4,7,10,15]; let i=1; for(const t of st){ if(v>=t) i++; } return `var(--h${i})`; }
+{
+  $('#rampSw').innerHTML=[0,1,2,3,4,5,6,7].map(i=>`<i style="background:var(--h${i})"></i>`).join('');
+  const lmin=Math.log2(0.25), lmax=Math.log2(4);
+  const th=`<thead><tr><th>Topic</th><th style="text-align:right">Papers</th>${YEARS.map(y=>`<th class="yr">'${String(y).slice(2)}</th>`).join('')}<th>Star rate vs. average</th></tr></thead>`;
+  const rows=TS.map(t=>{
+    const lv=Math.log2(t.lift), pc=v=>100*(v-lmin)/(lmax-lmin), z=pc(0);
+    const left = lv>=0? z : pc(lv), width=Math.abs(pc(lv)-z);
+    const col = lv>=0?'var(--pos)':'var(--neg)';
+    const bar=`<svg width="100%" height="18" viewBox="0 0 100 18" preserveAspectRatio="none" aria-hidden="true"><rect x="${z-0.25}" y="1" width="0.5" height="16" style="fill:var(--line-2)"/><rect x="${left}" y="5" width="${Math.max(0.6,width)}" height="8" rx="1" style="fill:${col}"/></svg>`;
+    const cells=t.share.map((v,i)=>`<td class="hc"><div class="cell" style="background:${heatColor(v)}" data-y="${YEARS[i]}" data-v="${v}"></div></td>`).join('');
+    return `<tr data-t="${t.i}" tabindex="0" aria-label="${esc(t.k)}: ${t.n} papers, star rate ${t.lift} times average"><td class="tn">${esc(t.k)}</td><td class="num">${fmt(t.n)}</td>${cells}<td class="lift"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;min-width:120px">${bar}</div><span style="font-variant-numeric:tabular-nums;color:var(--ink-2);width:38px;text-align:right">${t.lift.toFixed(2)}×</span></div></td></tr>`;
+  }).join('');
+  $('#tTop').innerHTML = th+`<tbody>${rows}</tbody><tfoot><tr><td></td><td></td>${YEARS.map(()=>'<td></td>').join('')}<td><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding-right:46px"><span>¼×</span><span>½×</span><span>1×</span><span>2×</span><span>4×</span></div></td></tr></tfoot>`;
+  $('#tTop').addEventListener('pointermove',e=>{
+    const c=e.target.closest('.cell'); const tr=e.target.closest('tr[data-t]');
+    if(c&&tr){ const t=D.tstats.find(x=>x.i==tr.dataset.t); const yi=YEARS.indexOf(+c.dataset.y); const n=Math.round(t.share[yi]*ys[yi].n/100); showTip(e,`<div class="t">${esc(t.k)}, ${c.dataset.y}</div><div class="r"><span>Share of picks</span><b>${(+c.dataset.v).toFixed(1)}%</b></div><div class="r"><span>Papers</span><span>${fmt(n)}</span></div>`); }
+    else if(tr && e.target.closest('td.lift')){ const t=D.tstats.find(x=>x.i==tr.dataset.t); showTip(e,`<div class="t">${esc(t.k)}</div><div class="r"><span>Starred</span><span>${fmt(t.starred)} of ${fmt(t.n)}</span></div><div class="r"><span>vs. year-matched average</span><b>${t.lift.toFixed(2)}×</b></div>`); }
+    else hideTip();
+  });
+  $('#tTop').addEventListener('pointerleave',hideTip);
+  const go=tr=>{ resetFilters(); $('#topic').value=tr.dataset.t; location.hash='#search'; runSearch(); };
+  $('#tTop').addEventListener('click',e=>{const tr=e.target.closest('tr[data-t]'); if(tr) go(tr);});
+  $('#tTop').addEventListener('keydown',e=>{ if(e.key==='Enter'){const tr=e.target.closest('tr[data-t]'); if(tr) go(tr);} });
+}
+
+/* ---------- terms ---------- */
+const RISE=D.rise, FADE=D.fade;
+function chips(host,list){ $(host).innerHTML=list.map(([t,a,b])=>`<button class="chip" type="button" data-q="${esc(t)}">${esc(t)} <small>${a} vs ${b}</small></button>`).join(''); }
+chips('#cRise',RISE); chips('#cFade',FADE);
+document.querySelectorAll('#cRise,#cFade').forEach(h=>h.addEventListener('click',e=>{const b=e.target.closest('button[data-q]'); if(!b) return; resetFilters(); $('#q').value=b.dataset.q; location.hash='#search'; runSearch();}));
+
+/* ---------- search ---------- */
+let HAY=null;
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+function buildHay(){ HAY=R.map(r=>norm(r[1]+' \u0001 '+r[2]+' \u0001 '+r[0]+' '+r[3])); }
+const cats=['astro-ph','hep-ph','hep-ex','physics','gr-qc','nucl-ex','hep-th','quant-ph','nucl-th','cs','stat'];
+$('#cat').innerHTML='<option value="">All</option>'+cats.map(c=>`<option>${c}</option>`).join('')+'<option value="__other">Other</option>';
+$('#topic').innerHTML='<option value="">All topics</option>'+D.topics.map((t,i)=>`<option value="${i}">${esc(t)}</option>`).join('');
+const yopts=[2010,...YEARS]; $('#y0').innerHTML=yopts.map(y=>`<option>${y}</option>`).join(''); $('#y1').innerHTML=yopts.map(y=>`<option>${y}</option>`).join('');
+$('#y0').value=2010; $('#y1').value=YEARS[YEARS.length-1];
+let starMin=0, shown=100, MATCH=[];
+function resetFilters(){ $('#q').value=''; $('#cat').value=''; $('#topic').value=''; $('#y0').value=2010; $('#y1').value=YEARS[YEARS.length-1]; $('#own').checked=false; $('#ord').value='new'; setStars(0); }
+function setStars(s){ starMin=s; document.querySelectorAll('#segStars button').forEach(b=>b.setAttribute('aria-pressed', String(+b.dataset.s===s))); }
+$('#segStars').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; setStars(+b.dataset.s); runSearch();});
+function runSearch(){
+  if(!HAY) buildHay();
+  const terms=norm($('#q').value).split(/\s+/).filter(Boolean);
+  const cat=$('#cat').value, tp=$('#topic').value, y0=+$('#y0').value, y1=+$('#y1').value, own=$('#own').checked;
+  const tc = tp===''?null:TOPIC_CODES[+tp];
+  MATCH=[];
+  for(let i=0;i<R.length;i++){
+    const r=R[i];
+    if(r[4]<starMin) continue;
+    if(cat){ if(cat==='__other'){ if(cats.includes(r[3])) continue; } else if(r[3]!==cat) continue; }
+    if(tc && !r[6].includes(tc)) continue;
+    if(r[5] && (r[5]<y0 || r[5]>y1)) continue;
+    if(own && !OWN.has(i)) continue;
+    if(terms.length){ const h=HAY[i]; let ok=true; for(const t of terms){ if(!h.includes(t)){ok=false;break;} } if(!ok) continue; }
+    MATCH.push(i);
+  }
+  if($('#ord').value==='old') MATCH.reverse();
+  shown=100; renderRes(terms);
+}
+function hl(text,terms){
+  let s=esc(text); if(!terms.length) return s;
+  const nt=norm(text); const marks=[];
+  terms.forEach(t=>{ let p=0; while((p=nt.indexOf(t,p))!==-1){ marks.push([p,p+t.length]); p+=t.length; } });
+  if(!marks.length) return s;
+  if(nt.length!==text.length) return s;
+  marks.sort((a,b)=>a[0]-b[0]); const merged=[]; marks.forEach(m=>{ if(merged.length && m[0]<=merged[merged.length-1][1]) merged[merged.length-1][1]=Math.max(merged[merged.length-1][1],m[1]); else merged.push(m.slice()); });
+  let out='',last=0; merged.forEach(([a,b])=>{ out+=esc(text.slice(last,a))+'<mark>'+esc(text.slice(a,b))+'</mark>'; last=b; }); return out+esc(text.slice(last));
+}
+function itemHTML(i,terms){
+  const r=R[i]; const st=r[4]===2?'★★':r[4]===1?'★':'';
+  const url = r[7]===2 ? 'https://arxiv.org/search/?searchtype=title&query='+encodeURIComponent(r[1]) : 'https://arxiv.org/abs/'+r[0];
+  return `<li><span class="stars" aria-label="${r[4]} stars">${st}</span><span class="ti"><a href="${url}" target="_blank" rel="noopener">${hl(r[1],terms)}</a></span><span class="au">${hl(r[2],terms)}</span><span class="mt"><span class="id">${r[7]===2?'<span class="warn">ID unclear</span>':esc(r[0])}</span>${r[3]?`<span class="cat">${esc(r[3])}</span>`:''}${r[5]?`<span>${r[5]}</span>`:''}</span></li>`;
+}
+function renderRes(terms){
+  terms = terms || norm($('#q').value).split(/\s+/).filter(Boolean);
+  const n=MATCH.length, s1=MATCH.filter(i=>R[i][4]>0).length;
+  $('#resN').innerHTML = `<b>${fmt(n)}</b> ${n===1?'paper':'papers'}${n?` · ${fmt(s1)} starred`:''}`;
+  $('#res').innerHTML = n? MATCH.slice(0,shown).map(i=>itemHTML(i,terms)).join('') : '<li class="empty" style="display:block">No papers match. Try fewer words, or clear the filters.</li>';
+  $('#moreBtn').hidden = shown>=n;
+}
+let deb; $('#q').addEventListener('input',()=>{clearTimeout(deb); deb=setTimeout(runSearch,140);});
+['#cat','#topic','#y0','#y1','#own','#ord'].forEach(s=>$(s).addEventListener('change',runSearch));
+$('#form').addEventListener('submit',e=>{e.preventDefault(); runSearch();});
+$('#moreBtn').addEventListener('click',()=>{shown+=100; renderRes();});
+$('#reset').addEventListener('click',()=>{resetFilters(); runSearch();});
+async function copyText(txt,btn,label){
+  try{ await navigator.clipboard.writeText(txt); btn.textContent='Copied'; }
+  catch(_){ const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand('copy'); }catch(e){} ta.remove(); btn.textContent= ok?'Copied':'Copy blocked here'; }
+  setTimeout(()=>btn.textContent=label,1600);
+}
+$('#copyIds').addEventListener('click',e=>{ const ids=MATCH.filter(i=>R[i][7]!==2).map(i=>R[i][0]); copyText(ids.join('\n'),e.currentTarget,'Copy arXiv IDs'); });
+
+/* ---------- routing ---------- */
+const VIEWS=['overview','search'];
+let drawn=false;
+function route(){
+  const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'overview';
+  VIEWS.forEach(x=>{ $('#v-'+x).hidden = x!==v; });
+  document.querySelectorAll('nav.tabs a').forEach(a=>{ if(a.dataset.v===v) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  hideTip();
+  if(v==='overview'){ drawVol(); drawCat(); }
+  if(v==='search' && !MATCH.length && !HAY) runSearch();
+}
+addEventListener('hashchange',route);
+let rz; addEventListener('resize',()=>{clearTimeout(rz); rz=setTimeout(()=>{ if(!$('#v-overview').hidden){drawVol();drawCat();} },120);});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{ if(!$('#v-overview').hidden){drawVol();drawCat();} });
+new MutationObserver(()=>{ if(!$('#v-overview').hidden){drawVol();drawCat();} }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+route();
+</script>
+</body>
+</html>

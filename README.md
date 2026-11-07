@@ -9,3 +9,13 @@ This repository hosts a single-page, searchable version of all 18,169 picks (Feb
 One star (★) marks a paper he found especially interesting; two stars (★★), one that is very relevant to his own work. Topics are assigned by keyword matches on paper titles, so they are approximate, and years come from arXiv identifiers.
 
 The page is a self-contained `index.html`: the data are embedded in it, and search runs in the browser.
+
+## Rebuilding
+
+The page is generated from the plain-text log of picks (`Selected_papers.txt`):
+
+```
+python3 build/build_page.py path/to/Selected_papers.txt --check
+```
+
+This rewrites `index.html` with the data embedded, and `--check` loads it in headless Chromium and runs a search. `build/template.html` holds the page layout; `build/build_page.py` parses the log, repairs mistyped arXiv IDs where the fix is unambiguous, tags topics by keywords in titles, and computes the yearly statistics and rising and fading title terms.
