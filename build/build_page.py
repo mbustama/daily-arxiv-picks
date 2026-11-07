@@ -268,7 +268,7 @@ def term_lists(recs, last_year):
 def build(src, out, check=False):
     recs, nbatches, leftovers = parse(src)
     for r in recs:
-        r['year'] = 2000 + int(r['id'][:2]) if IDGOOD.match(r['id']) else None
+        r['year'] = 2000 + int(r['id'][:2]) if re.match(r'^\d{2}(0[1-9]|1[0-2])\.\d', r['id']) else None
         r['topics'] = [i for i, (k, rx) in enumerate(TOPIC_RE.items()) if rx.search(r['title'])]
     ids_ok = [r['id'] for r in recs if IDGOOD.match(r['id'])]
     newest = collections.Counter(r['id'][:4] for r in recs[:40] if IDGOOD.match(r['id'])).most_common(1)[0][0]
